@@ -1,3 +1,4 @@
+using DomeGym.Domain.AdminAggregate.Events;
 using DomeGym.Domain.Common;
 using DomeGym.Domain.SubscriptionAggregate;
 
@@ -29,6 +30,7 @@ public class Admin : AggregateRoot
 
         SubscriptionId = subscription.Id;
 
+        _domainEvents.Add(new SubscriptionSetEvent(this, subscription));
         return Result.Success;
     }
 

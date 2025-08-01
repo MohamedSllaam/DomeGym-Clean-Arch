@@ -10,12 +10,11 @@ namespace DomeGym.Application.Subscriptions.Commands.CreateSubscription;
 public class CreateSubscriptionCommandHandler : IRequestHandler<CreateSubscriptionCommand, ErrorOr<Subscription>>
 {
     private readonly IAdminsRepository _adminsRepository;
-    private readonly ISubscriptionsRepository _subscriptionsRepository;
-
-    public CreateSubscriptionCommandHandler(IAdminsRepository adminsRepository, ISubscriptionsRepository subscriptionsRepository)
+ 
+    public CreateSubscriptionCommandHandler(IAdminsRepository adminsRepository)
     {
         _adminsRepository = adminsRepository;
-        _subscriptionsRepository = subscriptionsRepository;
+       
     }
 
     public async Task<ErrorOr<Subscription>> Handle(CreateSubscriptionCommand command, CancellationToken cancellationToken)
@@ -36,7 +35,10 @@ public class CreateSubscriptionCommandHandler : IRequestHandler<CreateSubscripti
         admin.SetSubscription(subscription);
 
         await _adminsRepository.UpdateAsync(admin);
-        await _subscriptionsRepository.AddSubscriptionAsync(subscription);  
+
+      // await _subscriptionsRepository.AddSubscriptionAsync(subscription);  
+
+
 
         return subscription;
     }
